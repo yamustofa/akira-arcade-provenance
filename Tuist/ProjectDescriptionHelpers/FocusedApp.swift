@@ -170,7 +170,7 @@ public extension FocusedApp {
         slug: "thin",
         title: "Thin",
         cores: [],
-        libretro: ["mednafen_psx_hw", "mupen64plus_next", "snes9x", "ppsspp"],
+        libretro: ["mednafen_psx_hw", "pcsx_rearmed", "mupen64plus_next", "snes9x", "ppsspp"],
         flags: [DevSettings.harnessFlag]
     )
 
