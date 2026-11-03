@@ -6,7 +6,14 @@
 PV_REPO_ROOT = $(SRCROOT)/..
 
 // Provenance-Lite (AppStore) entitlements (Build.xcconfig's selector would resolve Dev/Provenance/...)
-CODE_SIGN_ENTITLEMENTS = $(PV_REPO_ROOT)/Provenance/Provenance-AppStore.entitlements
+// DEVELOPER_ACCOUNT_PAID = NO (CodeSigning.xcconfig) signs with a free personal team, which
+// supports none of the AppStore capabilities (iCloud, push, associated domains, app groups).
+DEV_IOS_ENTITLEMENTS_ = $(PV_REPO_ROOT)/Provenance/Provenance-AppStore.entitlements
+DEV_IOS_ENTITLEMENTS_YES = $(DEV_IOS_ENTITLEMENTS_)
+DEV_IOS_ENTITLEMENTS_AppStore = $(DEV_IOS_ENTITLEMENTS_)
+DEV_IOS_ENTITLEMENTS_JB = $(DEV_IOS_ENTITLEMENTS_)
+DEV_IOS_ENTITLEMENTS_NO = $(PV_REPO_ROOT)/Provenance/Provenance-PersonalTeam.entitlements
+CODE_SIGN_ENTITLEMENTS = $(DEV_IOS_ENTITLEMENTS_$(DEVELOPER_ACCOUNT_PAID))
 CODE_SIGN_ENTITLEMENTS[sdk=appletvos*] = $(PV_REPO_ROOT)/ProvenanceTV/ProvenanceTV-AppStore.entitlements
 CODE_SIGN_ENTITLEMENTS[sdk=appletvsimulator*] = $(PV_REPO_ROOT)/ProvenanceTV/ProvenanceTV-AppStore.entitlements
 

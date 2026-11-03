@@ -29,6 +29,8 @@ skip_dirs = ["__pycache__", ".build"]
 
 [ignore]
 paths = [
+  # Akira Arcade: run by hand to set up the Thin dev app on a Mac.
+  "Scripts/akira/setup_dev_thin.sh",
   # Xcode build phases call these by path.
   "Scripts/build-phases/set_bundle_build_number.sh",
   "Scripts/build-phases/setup_env.sh",

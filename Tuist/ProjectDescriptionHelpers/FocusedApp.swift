@@ -200,6 +200,13 @@ public extension FocusedApp {
 
     static let catalog: [FocusedApp] = [.ui, .azahar, .thin, .n64, .dolphin, .emuThree, .ppsspp, .coreless]
 
-    /// The apps in the generated project.
-    static var all: [FocusedApp] { catalog.filter(\.isEnabled) }
+    /// The apps in the generated project. `TUIST_DEV_ONLY=thin,ui` keeps only those slugs, so a
+    /// checkout without prebuilt slices (Azahar) can still generate the apps it can build.
+    static var all: [FocusedApp] {
+        let enabled = catalog.filter(\.isEnabled)
+        let only = (ProcessInfo.processInfo.environment["TUIST_DEV_ONLY"] ?? "")
+            .split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
+        guard !only.isEmpty else { return enabled }
+        return enabled.filter { only.contains($0.slug) }
+    }
 }
